@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Netflix Style Video Playlist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f0f0f;
+  color:white;
+}
+
+.header{
+  padding:20px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+#player{
+  width:100%;
+  height:450px;
+  border-radius:16px;
+}
+
+.row{
+  margin-top:25px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.carousel{
+  margin-top:10px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.carousel::-webkit-scrollbar{
+  height:6px;
+}
+.carousel::-webkit-scrollbar-thumb{
+  background:#333;
+  border-radius:10px;
+}
+
+.card{
+  min-width:220px;
+  height:130px;
+  border-radius:14px;
+  background:#111;
+  cursor:pointer;
+  position:relative;
+  transition:.2s;
+  overflow:hidden;
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.85;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.card.active{
+  outline:2px solid #22c55e;
+}
+
+.title{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:8px;
+  font-size:13px;
+  background:linear-gradient(transparent,#000);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🎥 My Playlist</div>
+
+<div class="container">
+
+  <iframe id="player"
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+
+  <div class="row">Recommended</div>
+
+  <div class="carousel" id="playlist">
+
+    <div class="card active"
+      data-src="https://www.youtube.com/embed/abc123">
+      <img src="https://img.youtube.com/vi/abc123/hqdefault.jpg">
+      <div class="title">Video 1</div>
+    </div>
+
+    <div class="card"
+      data-src="https://www.youtube.com/embed/xyz456">
+      <img src="https://img.youtube.com/vi/xyz456/hqdefault.jpg">
+      <div class="title">Video 2</div>
+    </div>
+
+    <div class="card"
+      data-src="https://www.youtube.com/embed/777kkk">
+      <img src="https://img.youtube.com/vi/777kkk/hqdefault.jpg">
+      <div class="title">Video 3</div>
+    </div>
+
+    <div class="card"
+      data-src="https://www.youtube.com/embed/mmm999">
+      <img src="https://img.youtube.com/vi/mmm999/hqdefault.jpg">
+      <div class="title">Video 4</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const player = document.getElementById("player");
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+  card.addEventListener("click",()=>{
+
+    cards.forEach(c=>c.classList.remove("active"));
+    card.classList.add("active");
+
+    player.src = card.dataset.src + "?autoplay=1";
+  });
+});
+</script>
+
+</body>
+</html>
